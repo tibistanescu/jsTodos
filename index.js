@@ -3,7 +3,7 @@ let todos = [];
 
 // it should have a way to display todos
 function displayTodos() {
-    console.log(todos);
+    console.log('My todos: ', todos);
 }
 
 // it should have a way to add new todos
@@ -21,5 +21,6 @@ function changeTodo(position, newValue) {
 // it should have a way to delete a todo
 function deleteTodo(position) {
     todos.splice(position, 1);
+    displayTodos();
 }
 

@@ -6,7 +6,14 @@ let todoList = {
         if(this.todos.length === 0){
             console.log('Your todo list is empty!');
         } else {
-            console.log('My todos:', this.todos);
+            console.log('My todos:');
+            for(let i = 0; i < this.todos.length; i++){
+                if(this.todos[i].completed === true){
+                    console.log('(x)', this.todos[i].todoDescription);
+                } else {
+                    console.log('()', this.todos[i].todoDescription);
+                }
+            }
         }
     },   
     // it should have a way to add new todos

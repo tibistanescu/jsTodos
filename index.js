@@ -34,6 +34,30 @@ let todoList = {
         todo.completed = !todo.completed;
         this.displayTodos();
     },
+    toggleCompletedAll: function(){
+        let completedTodos = 0;
+        let totalTodos = this.todos.length;
+        
+        // get number of completed todos
+        for(let i = 0; i < totalTodos; i++){
+            if(this.todos[i].completed === true){
+                completedTodos++;
+            }
+        }
+
+        // case 1: if all todos are completed, make all todos not completed
+        if(totalTodos === completedTodos) {
+            for(let i = 0; i < totalTodos; i++){
+                this.todos[i].completed = false;
+            }
+        // case 2: otherwise, make all todos completed
+        } else {
+            for(let i = 0; i < totalTodos; i++){
+                this.todos[i].completed = true;
+            }    
+        }
+        this.displayTodos();
+    },
     // it should have a way to delete a todo
     deleteTodo: function(position){
         this.todos.splice(position, 1);

@@ -21,9 +21,3 @@ let todoList = {
         this.displayTodos();
     }
 }
-
-console.log(todoList);
-todoList.addTodo('test');
-todoList.addTodo('test2');
-todoList.changeTodo(0, 'test1');
-todoList.deleteTodo(1);

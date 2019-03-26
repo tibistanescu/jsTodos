@@ -3,7 +3,11 @@ let todoList = {
     todos: [], 
     // it should have a way to display todos
     displayTodos: function(){ 
-        console.log('My todos:', this.todos);
+        if(this.todos.length === 0){
+            console.log('Your todo list is empty!');
+        } else {
+            console.log('My todos:', this.todos);
+        }
     },   
     // it should have a way to add new todos
     addTodo: function(todoDescription){

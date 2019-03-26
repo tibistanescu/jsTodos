@@ -6,13 +6,21 @@ let todoList = {
         console.log('My todos:', this.todos);
     },   
     // it should have a way to add new todos
-    addTodo: function(todo){
-        this.todos.push(todo);
+    addTodo: function(todoDescription){
+        this.todos.push({
+            todoDescription: todoDescription,
+            completed: false,
+        });
         this.displayTodos();
     },
     // it should have a way to change a todo
-    changeTodo: function(position, newValue){
-        this.todos[position] = newValue;
+    changeTodo: function(position, todoDescription){
+        this.todos[position].todoDescription = todoDescription;
+        this.displayTodos();
+    },
+    toggleCompleted: function(position){
+        let todo = this.todos[position];
+        todo.completed = !todo.completed;
         this.displayTodos();
     },
     // it should have a way to delete a todo

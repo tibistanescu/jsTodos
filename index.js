@@ -64,3 +64,13 @@ let todoList = {
         this.displayTodos();
     }
 }
+
+let displayTodosButton = document.getElementById('displayTodos');
+displayTodosButton.addEventListener('click', event => {
+    todoList.displayTodos();
+});
+
+let toggleAllButton = document.getElementById('toggleAll');
+toggleAllButton.addEventListener('click', event => {
+    todoList.toggleCompletedAll();
+});

@@ -1,43 +1,23 @@
 let todoList = {
     // it should have a place to store todos
     todos: [], 
-    // it should have a way to display todos
-    displayTodos: function(){ 
-        if(this.todos.length === 0){
-            console.log('Your todo list is empty!');
-        } else {
-            console.log('My todos:');
-            for(let i = 0; i < this.todos.length; i++){
-                if(this.todos[i].completed === true){
-                    console.log('(x)', this.todos[i].todoDescription);
-                } else {
-                    console.log('()', this.todos[i].todoDescription);
-                }
-            }
-        }
-    },   
-    // it should have a way to add new todos
     addTodo: function(todoDescription){
         this.todos.push({
             todoDescription: todoDescription,
             completed: false,
         });
-        this.displayTodos();
     },
     // it should have a way to change a todo
     changeTodo: function(position, todoDescription){
         this.todos[position].todoDescription = todoDescription;
-        this.displayTodos();
     },
     // it should have a way to delete a todo
     deleteTodo: function(position){
         this.todos.splice(position, 1);
-        this.displayTodos();
     },
     toggleCompleted: function(position){
         let todo = this.todos[position];
         todo.completed = !todo.completed;
-        this.displayTodos();
     },
     toggleCompletedAll: function(){
         let completedTodos = 0;
@@ -61,18 +41,18 @@ let todoList = {
                 this.todos[i].completed = true;
             }    
         }
-        this.displayTodos();
+    },
+    getTodosLength: function(){
+        return this.todos.length;
     }
 }
 
 let handlers = {
-    displayTodos: function(){
-        todoList.displayTodos();
-    },
     addTodo: function(){
         let addTodoInput = document.getElementById('addTodoInput');
         todoList.addTodo(addTodoInput.value);
         addTodoInput.value = '';
+        view.displayTodos();
     },
     changeTodo: function(){
         let changeTodoNumberInput = document.getElementById('changeTodoNumberInput');
@@ -80,18 +60,45 @@ let handlers = {
         todoList.changeTodo(changeTodoNumberInput.valueAsNumber, changeTodoTextInput.value);
         changeTodoNumberInput.value = '';
         changeTodoTextInput.value = '';
+        view.displayTodos();
     },
     deleteTodo: function(){
         let deleteTodoInput = document.getElementById('deleteTodoInput');
         todoList.deleteTodo(deleteTodoInput.valueAsNumber);
         deleteTodoInput.value = '';
+        view.displayTodos();
     },
     toggleCompleted: function(){
         let toggleCompletedInput = document.getElementById('toggleCompletedInput');
         todoList.toggleCompleted(toggleCompletedInput.valueAsNumber);
         toggleCompletedInput.value = '';
+        view.displayTodos();
     },
     toggleAll: function(){
         todoList.toggleCompletedAll();
+        view.displayTodos();
+    }
+}
+
+let view = {
+    displayTodos: function(){
+        let todoListContainer = document.getElementById('todoListContainer');
+        todoListContainer.innerHTML = '';
+
+        for(let i=0; i<todoList.getTodosLength(); i++){
+            let listItem = document.createElement('li');
+            listItem.textContent = todoList.todos[i].todoDescription;
+            let checkbox = document.createElement('input');
+            checkbox.setAttribute('type', 'checkbox');
+                        
+            if(todoList.todos[i].completed === true){
+                checkbox.setAttribute('checked', 'checked');
+            } else {
+                checkbox.removeAttribute('checked');
+            }
+
+            listItem.appendChild(checkbox);
+            todoListContainer.appendChild(listItem);
+        }
     }
 }

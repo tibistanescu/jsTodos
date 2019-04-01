@@ -9,7 +9,26 @@
     <script src="index.js" async></script>
 </head>
 <body>
-    <button id="displayTodos">Display todos</button>
-    <button id="toggleAll">Toggle all</button>
+    <div>
+        <button onclick="handlers.displayTodos()">Display todos</button>
+        <button onclick="handlers.toggleAll()">Toggle all</button>
+    </div>
+    <div>
+        <button onclick="handlers.addTodo()">Add todo</button>
+        <input id="addTodoInput" type="text">
+    </div>
+    <div>
+        <button onclick="handlers.changeTodo()">Change todo</button>
+        <input id="changeTodoNumberInput" type="number">
+        <input id="changeTodoTextInput" type="text">
+    </div>
+    <div>
+        <button onclick="handlers.toggleCompleted()">Toggle completed</button>
+        <input id="toggleCompletedInput" type="number">
+    </div>
+    <div>
+        <button onclick="handlers.deleteTodo()">Delete todo</button>
+        <input id="deleteTodoInput" type="number">
+    </div>
 </body>
 </html>

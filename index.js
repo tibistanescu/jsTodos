@@ -62,10 +62,8 @@ const handlers = {
         changeTodoTextInput.value = '';
         view.displayTodos();
     },
-    deleteTodo: function() {
-        let deleteTodoInput = document.getElementById('deleteTodoInput');
-        todoList.deleteTodo(deleteTodoInput.valueAsNumber);
-        deleteTodoInput.value = '';
+    deleteTodo: function(position) {
+        todoList.deleteTodo(position);
         view.displayTodos();
     },
     toggleCompleted: function() {
@@ -84,21 +82,38 @@ const view = {
     displayTodos: function() {
         let todoListContainer = document.getElementById('todoListContainer');
         todoListContainer.innerHTML = '';
-
+        this.createListItems();
+    },
+    createListItems: function() {
         for (let i=0; i<todoList.getTodosLength(); i++) {
             let listItem = document.createElement('li');
             listItem.textContent = todoList.todos[i].todoDescription;
-            let checkbox = document.createElement('input');
-            checkbox.setAttribute('type', 'checkbox');
-                        
-            if (todoList.todos[i].completed === true) {
-                checkbox.setAttribute('checked', 'checked');
-            } else {
-                checkbox.removeAttribute('checked');
-            }
-
-            listItem.appendChild(checkbox);
+            listItem.id = i;
+            listItem.appendChild(this.createCheckbox(i));
+            listItem.appendChild(this.createDeleteButton());
             todoListContainer.appendChild(listItem);
         }
-    }
+    },
+    createCheckbox: function(i) {
+        let checkbox = document.createElement('input');
+        checkbox.setAttribute('type', 'checkbox');
+                        
+        if (todoList.todos[i].completed === true) {
+            checkbox.setAttribute('checked', 'checked');
+        } else {
+            checkbox.removeAttribute('checked');
+        }
+
+        return checkbox;
+    },
+    createDeleteButton: function() {
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener('click', function(event) {
+            handlers.deleteTodo(event.target.parentNode.id);
+        })
+
+        return deleteButton;
+    },
 }

@@ -24,23 +24,21 @@ const todoList = {
         let totalTodos = this.todos.length;
         
         // get number of completed todos
-        for (let i = 0; i < totalTodos; i++) {
-            if(this.todos[i].completed === true){
+        this.todos.forEach(function(todo){
+            if(todo.completed === true){
                 completedTodos++;
             }
-        }
+        });
 
-        // case 1: if all todos are completed, make all todos not completed
-        if (totalTodos === completedTodos) {
-            for(let i = 0; i < totalTodos; i++){
-                this.todos[i].completed = false;
+        this.todos.forEach(function(todo){
+            // case 1: if all todos are completed, make all todos not completed
+            if(totalTodos === completedTodos){
+                todo.completed = false;
+            // case 2: otherwise, make all todos completed
+            } else {
+                todo.completed = true;
             }
-        // case 2: otherwise, make all todos completed
-        } else {
-            for (let i = 0; i < totalTodos; i++) {
-                this.todos[i].completed = true;
-            }    
-        }
+        });
     },
     getTodosLength: function() {
         return this.todos.length;
@@ -80,19 +78,19 @@ const handlers = {
 
 const view = {
     displayTodos: function() {
-        let todoListContainer = document.getElementById('todoListContainer');
+        let todoListContainer = document.querySelector('#todoListContainer');
         todoListContainer.innerHTML = '';
         this.createListItems();
     },
     createListItems: function() {
-        for (let i=0; i<todoList.getTodosLength(); i++) {
+        todoList.todos.forEach(function(todo, position){
             let listItem = document.createElement('li');
-            listItem.textContent = todoList.todos[i].todoDescription;
-            listItem.id = i;
-            listItem.appendChild(this.createCheckbox(i));
+            listItem.textContent = todo.todoDescription;
+            listItem.id = position;
+            listItem.appendChild(this.createCheckbox(position));
             listItem.appendChild(this.createDeleteButton());
             todoListContainer.appendChild(listItem);
-        }
+        }, this);
     },
     createCheckbox: function(i) {
         let checkbox = document.createElement('input');

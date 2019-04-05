@@ -87,16 +87,16 @@ const view = {
             let listItem = document.createElement('li');
             listItem.textContent = todo.todoDescription;
             listItem.id = position;
-            listItem.appendChild(this.createCheckbox(position));
+            listItem.appendChild(this.createCheckbox(todo));
             listItem.appendChild(this.createDeleteButton());
             todoListContainer.appendChild(listItem);
         }, this);
     },
-    createCheckbox: function(i) {
+    createCheckbox: function(todo) {
         let checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
                         
-        if (todoList.todos[i].completed === true) {
+        if (todo.completed === true) {
             checkbox.setAttribute('checked', 'checked');
         } else {
             checkbox.removeAttribute('checked');
